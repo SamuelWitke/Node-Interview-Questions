@@ -1,0 +1,63 @@
+<div>
+    <h2>Products</h2>
+    <div id="products" class="products"></div>
+
+    <h2>Carts</h2>
+    <div class="cart"></div>
+</div>
+<script>
+    let products = [
+        {
+            name: 'Product 1',
+            selected: false,
+            price: 10.5,
+        },
+        {
+            name: 'Product 2',
+            selected: true,
+            price: 4.5,
+        },
+        {
+            name: 'Product 3',
+            selected: false,
+            price: 5,
+        },
+    ]
+    // lightweight version of jQuery to select DOM elements
+    let $ = document.querySelector.bind(document)
+    let $$ = document.querySelectorAll.bind(document)
+    // render products into the products container - we have to call this whenever the state changes
+
+    function getProductHTML(product, index) {
+        console.log("getProductHTML")
+        return `
+		<div class="product product-${index}">
+            <div class="product-info">${product.name} - ${product.price} ${product.selected} $</div>
+			<input type="checkbox" ${product.selected ? 'checked' : ''}>
+		</div>
+	`
+    }
+    function setCartHTML() {
+        $('.cart').innerHTML = products
+            .filter(product => product.selected)
+            .map(product => `<div class="product">${product.name}</div>`)
+            .join('')
+    }
+    function refreshProducts() {
+        // set HTML
+        $('.products').innerHTML = products.map(getProductHTML).join(' ')
+        // add eventlistener for checkbox changes.
+        // input catches both click, space and related events that change the checked state
+        products.map((product, index) => {
+            console.log("refreshProducts")
+            $(`.product-${index}`).addEventListener('input', event => {
+                product.selected = event.target.checked
+                console.log("Event Listener")
+                setCartHTML()
+                refreshProducts()
+            })
+        })
+    }
+    refreshProducts()
+    setCartHTML()
+</script>

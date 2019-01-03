@@ -1,0 +1,24 @@
+ <div id="photo">
+</div>
+<script text="src/javascript">
+	const photo = document.getElementById('photo');
+	const timeoutContainer = (i,time) => {
+	const url = `https://source.unsplash.com/collection/${i}/480x480`
+		setTimeout(() =>{
+			const image = document.createElement("img");
+			image.id = "image"+i;
+			image.src = url;
+			photo.replaceChild(image,photo.firstChild);
+			console.log(i,time);
+		},2000*time
+		);
+	}
+	let i=0;	
+	let time= 0;
+	while(time < 100){
+		if(i===4) i=0;
+		timeoutContainer(i,time);
+		time++;
+		i++;
+	}
+</script>
