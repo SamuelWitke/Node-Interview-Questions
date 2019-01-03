@@ -1,3 +1,8 @@
+/*
+ * You should not simply create a Child Process for every client. 
+ * You can receive client requests more quickly than you can create and manage children, and your server might become a fork bomb.
+ * https://en.wikipedia.org/wiki/Fork_bomb
+ */
 const cluster = require('cluster');
 
 if (cluster.isMaster) {
@@ -14,5 +19,5 @@ if (cluster.isMaster) {
     cluster.fork();
   });
 } else {
-  require('./index.js');
+  require('./blocked.js');
 }
