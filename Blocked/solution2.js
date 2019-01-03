@@ -11,22 +11,27 @@ app.get('/', (req, res) => {
 	res.send('Hello, World\n') 
 });
 
-const asyncLongJob = (date,end,cb) => {
-	if(date >= end) {
-		cb();
-		return;
+const asyncLongJob = (date,end) => new Promise( resolve => {
+	const work = (date,end,cb) => {
+		if(date >= end) {
+		  cb("Long Job Over");
+			return;
+		}
+		date = Date.now()
+		/* 
+		 * The timer functions within Node.js implement a similar API as the timers API provided by Web Browsers 
+		 * but use a different internal implementation that is built around the Node.js Event Loop.
+		 */
+		setImmediate(work.bind(null,date,end,cb))
 	}
-	date = Date.now()
-	setImmediate(asyncLongJob.bind(null,date,end,cb))
-}
+	work(date,end,resolve);
+})
 
 app.get('/foo', (req, res) => {
 	let date = Date.now()
 	let end = Date.now() + 10000;
 
-	asyncLongJob(date,end, () => {
-		res.send('I am done!');
-	});
+	asyncLongJob(date,end).then( (data) => res.send(data));
 });
 
 app.get('/bar', (req, res) => {
