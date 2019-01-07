@@ -3,7 +3,7 @@ const app = express();
 
 app.get('/', (req, res) => res.send('Hello, World'));
 
-app.get('/block', (req, res) => {
+app.get('/foo', (req, res) => {
   let date = Date.now()
 	let end = Date.now() + 10000;
 

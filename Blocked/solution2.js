@@ -34,7 +34,7 @@ app.get('/foo', (req, res) => {
 	asyncLongJob(date,end).then( (data) => res.send(data));
 });
 
-app.get('/bar', (req, res) => {
+app.get('/non-block', (req, res) => {
 	// Imagine that setTimeout is IO operation
 	// setTimeout is a native implementation, not the JS
 	setTimeout(() => res.send('I am done!'), 5001);
