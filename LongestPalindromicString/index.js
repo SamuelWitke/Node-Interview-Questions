@@ -5,8 +5,7 @@ function longestPalindrome(string) {
 		if (s.length <= 1) return s;
 		for (let i = 0; i < s.length; i++){
 			midExpansion(s, i, i);
-			// midExpansion(s, i , i + 1);
-
+			midExpansion(s, i , i + 1);
 		} 
 		return res;
 	}
