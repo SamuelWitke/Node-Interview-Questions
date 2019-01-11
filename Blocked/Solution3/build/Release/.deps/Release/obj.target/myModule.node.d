@@ -1,0 +1,1 @@
+cmd_Release/obj.target/myModule.node := g++ -shared -pthread -rdynamic -m64  -Wl,-soname=myModule.node -o Release/obj.target/myModule.node -Wl,--start-group Release/obj.target/myModule/src/index.o Release/obj.target/myModule/src/MyAsyncBinding.o -Wl,--end-group 
