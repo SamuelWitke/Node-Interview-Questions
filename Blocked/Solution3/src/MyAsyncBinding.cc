@@ -1,30 +1,14 @@
 #include "MyAsyncBinding.h"
+#include <unistd.h>
+
 
 NAN_MODULE_INIT(MyAsyncBinding::Init) {
-  Nan::SetMethod(target, "doSyncStuff", DoSyncStuff);
   Nan::SetMethod(target, "doAsyncStuff", DoAsyncStuff);
 }
 
 void delay(int iterations) {
   // use volatile to prevent compiler from optimizing empty loop
-  for (volatile int i = 0; i < iterations; i++);
-}
-
-NAN_METHOD(MyAsyncBinding::DoSyncStuff) {
-  if(!info[0]->IsString()) {
-    return Nan::ThrowError(Nan::New("expected arg 0: string workerId").ToLocalChecked());
-  }
-  if(!info[1]->IsInt32()) {
-    return Nan::ThrowError(Nan::New("expected arg 1: int iterations").ToLocalChecked());
-  }
-
-  std::string workerId = std::string(*Nan::Utf8String(info[0]->ToString()));
-  int iterations = info[1]->Int32Value();
-
-  // mimic long running task
-  delay(iterations);
-
-  info.GetReturnValue().Set(Nan::New(workerId).ToLocalChecked());
+  usleep(iterations*1000);  
 }
 
 class MyAsyncWorker : public Nan::AsyncWorker {

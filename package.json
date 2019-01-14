@@ -1,0 +1,22 @@
+{
+  "name": "node-interview-questions",
+  "version": "1.0.0",
+  "description": "Node Interview Question",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/SamuelWitke/Node-Interview-Questions.git"
+  },
+  "author": "Samuel Witke",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/SamuelWitke/Node-Interview-Questions/issues"
+  },
+  "homepage": "https://github.com/SamuelWitke/Node-Interview-Questions#readme",
+  "devDependencies": {
+    "eslint-plugin-react": "^7.12.3"
+  }
+}
