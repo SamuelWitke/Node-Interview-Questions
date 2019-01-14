@@ -3,16 +3,15 @@ const app = express()
 var m = require("./")
 
 function doAsyncStuffPromised(workerId, throwsError = false) {
-	return new Promise(function(resolve, reject) {
+	return new Promise((resolve, reject) => {
 		const seconds = 5000
 
-		m.doAsyncStuff(workerId, seconds, throwsError, function(error, result) {
+		m.doAsyncStuff(workerId, seconds, throwsError, (error, result) => {
 			if (error) {
 				return reject(error)
 			}
 			return resolve(result)
 		})
-
 	})
 }
 
@@ -22,8 +21,7 @@ app.get("/", (req, res) => res.send("Hello, World"))
 app.get("/foo", (req, res) => {
 	doAsyncStuffPromised("1")
 		.then((tId) => {
-			console.log("task %s finished", tId)
-			res.send("Done")
+			res.send(`Done ${tId}`)
 		})
 })
 
